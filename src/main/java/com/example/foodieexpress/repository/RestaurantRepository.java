@@ -1,15 +1,18 @@
 package com.example.foodieexpress.repository;
 
-import com.example.foodieexpress.entity.enums.RestaurantType;
+
+import com.example.foodieexpress.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface RestaurantRepository<Restaurant> extends JpaRepository<Restaurant, Long> {
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    List<Restaurant> findByType(RestaurantType type);
+    Optional<Restaurant> findById(Long id);  // Restoran id'sine göre bul
 
-    List<Restaurant> findByNameContainingIgnoreCase(String name);
+    List<Restaurant> findByNameContainingIgnoreCase(String name);  // Restoran ismine göre arama (case insensitive)
+
+    List<Restaurant> findAllByCity(String city);  // Şehre göre restoranları listele
+
+    List<Restaurant> findAllByRatingGreaterThanEqual(Double rating);  // Yüksek puanlı restoranları listele
 }

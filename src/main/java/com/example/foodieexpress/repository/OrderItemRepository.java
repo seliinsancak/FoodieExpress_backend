@@ -1,13 +1,14 @@
 package com.example.foodieexpress.repository;
 
+
 import com.example.foodieexpress.entity.OrderItem;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
-    List<OrderItem> findByOrderId(Long orderId);
+    List<OrderItem> findByOrderId(Long orderId);  // Sipariş id'sine göre sipariş öğeleri
+
+    List<OrderItem> findByMenuItemId(Long menuItemId);  // Menü öğesi id'sine göre sipariş öğeleri
 }

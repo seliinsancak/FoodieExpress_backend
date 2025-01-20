@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -24,7 +26,11 @@ public class User extends BaseEntity {
     String email;
     String username;
     String password;
+    String phone;
 
-    @Builder.Default
-    Boolean isEmailVerified=false;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;  // Kullanıcının verdiği siparişler
+
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;  // Kullanıcının yazdığı yorumlar
 }

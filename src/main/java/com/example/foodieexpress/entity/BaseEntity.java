@@ -1,39 +1,30 @@
 package com.example.foodieexpress.entity;
 
-import com.example.foodieexpress.entity.enums.EState;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Data
-@SuperBuilder
+@EqualsAndHashCode
+@MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
 public class BaseEntity {
 
-    LocalDate createAt;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-    LocalDate updateAt;
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
-    @Enumerated(EnumType.STRING)
-    @Builder.Default
-    EState state= EState.ACTIVE;
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 
-    @PrePersist
-    protected void onCreate() {
-        this.createAt = LocalDate.now();
-        this.updateAt = LocalDate.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateAt = LocalDate.now();
-    }
 }
 

@@ -1,20 +1,19 @@
 package com.example.foodieexpress.repository;
 
 import com.example.foodieexpress.entity.User;
-import com.example.foodieexpress.entity.enums.UserStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByUsername(String username);
-    Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);  // Kullanıcıyı email ile bul
 
-    List<User> findByStatus(UserStatus status);
+    Boolean existsByEmail(String email);  // Email kontrolü
 
+    Boolean existsByPhone(String phone);  // Telefon numarası kontrolü
+
+    Optional<User> findByPhone(String phone);  // Telefon numarası ile kullanıcı bul
+
+
+    Optional<User> findById(Long id);
 }
-
