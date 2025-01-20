@@ -1,6 +1,6 @@
 package com.example.foodieexpress.entity.enums;
 
 public enum Role {
-    USER,
-    ADMIN;
+
+    ADMIN, USER, RESTAURANT_OWNER;
 }
