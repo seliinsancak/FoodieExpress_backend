@@ -20,15 +20,15 @@ public class JwtManager {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    private final Long expirationTime = 1000L * 60 * 60 * 10; // 10 saatlik geçerlilik süresi
+    private final Long expirationTime = 1000L * 60 * 60 * 10;
+
 
     public String createToken(Long authId) {
         Date issuedAt = new Date(System.currentTimeMillis());
         Date expiresAt = new Date(System.currentTimeMillis() + expirationTime);
 
-        Object Algorithm;
-        Algorithm algorithm = Algorithm.HMAC512(secretKey);
 
+        Algorithm algorithm = Algorithm.HMAC512(secretKey);
 
         return JWT.create()
                 .withIssuer(issuer)
@@ -39,8 +39,10 @@ public class JwtManager {
                 .sign(algorithm);
     }
 
+
     public Optional<Long> validateToken(String token) {
         try {
+
             Algorithm algorithm = Algorithm.HMAC512(secretKey);
             JWTVerifier verifier = JWT.require(algorithm).withIssuer(issuer).build();
             DecodedJWT decodedJWT = verifier.verify(token);
@@ -49,10 +51,11 @@ public class JwtManager {
                 return Optional.empty();
             }
 
+
             Long authId = decodedJWT.getClaim("authId").asLong();
             return Optional.of(authId);
         } catch (Exception e) {
-            // Loglama yapılabilir
+
             return Optional.empty();
         }
     }
