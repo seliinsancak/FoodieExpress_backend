@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tbladmin")
+@Table(name = "tbl_admin")
 
 public class Admin {
     @Id

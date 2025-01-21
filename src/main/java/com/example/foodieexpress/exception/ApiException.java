@@ -3,23 +3,21 @@ package com.example.foodieexpress.exception;
 import org.springframework.http.HttpStatus;
 
 public class ApiException extends RuntimeException {
-    private final int code;
-    private final HttpStatus status;
 
+    private final ErrorType errorType;
 
     public ApiException(ErrorType errorType) {
         super(errorType.getMessage());
-        this.code = errorType.getCode();
-        this.status = errorType.getHttpStatus();
+        this.errorType = errorType;
     }
 
-    public int getCode() {
-        return code;
+    public ApiException(ErrorType errorType, String customMessage) {
+        super(customMessage);
+        this.errorType = errorType;
     }
 
-    public HttpStatus getStatus() {
-        return status;
+    public ErrorType getErrorType() {
+        return errorType;
     }
 }
-
 

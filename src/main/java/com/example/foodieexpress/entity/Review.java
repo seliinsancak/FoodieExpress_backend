@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tblReview")
+@Table(name = "tbl_review")
 public class Review {
 
     @Id

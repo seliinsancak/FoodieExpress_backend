@@ -8,11 +8,11 @@ import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    Optional<Restaurant> findById(Long id);  // Restoran id'sine göre bul
+    Optional<Restaurant> findById(Long id);
 
-    List<Restaurant> findByNameContainingIgnoreCase(String name);  // Restoran ismine göre arama (case insensitive)
+    List<Restaurant> findByNameContainingIgnoreCase(String name);
 
-    List<Restaurant> findAllByCity(String city);  // Şehre göre restoranları listele
+    List<Restaurant> findAllByCity(String city);
 
-    List<Restaurant> findAllByRatingGreaterThanEqual(Double rating);  // Yüksek puanlı restoranları listele
+    List<Restaurant> findAllByRatingGreaterThanEqual(Double rating);
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tblRestaurant")  // Tablo adı belirtilebilir
+@Table(name = "tbl_restaurant")  // Tablo adı belirtilebilir
 public class Restaurant extends BaseEntity {
 
     @Id

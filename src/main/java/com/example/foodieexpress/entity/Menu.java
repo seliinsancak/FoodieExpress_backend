@@ -12,16 +12,30 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tblmenu")
+@Table(name = "tbl_menu")
 public class Menu extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(nullable = false)
     String name;
-    String description; 
+
+    @Column(nullable = false)
+    String description;
+
+    @Column(nullable = false)
     Double price;
+
     String imageUrl;
-    Boolean isAvailable;
+
+    @Column(nullable = false)
+    Boolean isAvailable = true;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
 }
+
