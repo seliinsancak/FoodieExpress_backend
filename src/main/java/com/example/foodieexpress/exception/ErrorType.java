@@ -1,8 +1,6 @@
 package com.example.foodieexpress.exception;
 
-import org.springdoc.api.ErrorMessage;
 import org.springframework.http.HttpStatus;
-
 
 public enum ErrorType {
 
@@ -55,13 +53,11 @@ public enum ErrorType {
 
     public ErrorMessage toErrorMessage() {
         return ErrorMessage.builder()
-                .code(this.code)
+                .code(this.code)  // `code` burada doğru şekilde erişiliyor
                 .message(this.message)
-                .success(false)
-                .fields(null)  // You can customize this as needed
+                .success(false)  // default success value
+                .fields(null)    // Optional: customize if necessary
                 .build();
     }
 }
-
-
 

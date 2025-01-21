@@ -16,20 +16,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_restaurant")  // Tablo adı belirtilebilir
+@Table(name = "tbl_restaurant")
 public class Restaurant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;  // Restaurant için benzersiz ID
+    Long id;
 
-    String name;  // Restoran adı
-    String address;  // Restoran adresi
-    String phoneNumber;  // Restoran telefon numarası
+    String name;
+    String address;
+    String phoneNumber;
     Double rating;
-    String logo;  // Restoran logosu (isteğe bağlı)
-    String cuisineType;  // Restoran mutfağı (örneğin, Türk, İtalyan vs.)
-    boolean isActive;  // Restoranın aktif olup olmadığını belirtir (açık/kapalı)
+    String logo;
+    String cuisineType;
+    boolean isActive;
 
 
     @OneToMany(mappedBy = "restaurant")

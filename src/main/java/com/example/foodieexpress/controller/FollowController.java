@@ -2,7 +2,7 @@ package com.example.foodieexpress.controller;
 
 import com.example.foodieexpress.dto.request.FollowRequestDTO;
 import com.example.foodieexpress.dto.response.FollowResponseDTO;
-import com.foodieexpress.service.FollowService;
+import com.example.foodieexpress.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

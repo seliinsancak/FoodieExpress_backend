@@ -1,30 +1,19 @@
 package com.example.foodieexpress.entity;
 
-
-
+import lombok.*;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.time.LocalDateTime;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@EqualsAndHashCode
-@MappedSuperclass
-@NoArgsConstructor
+@SuperBuilder
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
+@MappedSuperclass
 public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
-    @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime createdDate;
-
-    @Column(name = "updated_date")
-    private LocalDateTime updatedDate;
+    private Long id;
 
 }
 

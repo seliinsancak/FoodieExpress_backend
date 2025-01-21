@@ -1,18 +1,15 @@
 package com.example.foodieexpress.exception;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.List;
-
-@Getter
-@Setter
+@Data
 @Builder
 public class ErrorMessage {
-
-    private int code;
+    private Integer code;
     private String message;
     private boolean success;
-    private List<String> fields;
+    private Object fields;
 }
+
+

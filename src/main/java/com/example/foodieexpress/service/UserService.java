@@ -4,6 +4,7 @@ import com.example.foodieexpress.dto.request.UserLoginRequestDTO;
 import com.example.foodieexpress.dto.request.UserRegisterRequestDTO;
 import com.example.foodieexpress.dto.response.UserResponseDTO;
 import com.example.foodieexpress.entity.User;
+import com.example.foodieexpress.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final List<User> userList = new ArrayList<>();
-    private long idCounter = 1;
+    private final UserRepository userRepository;
 
     // Yeni kullanıcı kaydetme
     public UserResponseDTO registerUser(UserRegisterRequestDTO userDTO) {
@@ -24,29 +24,23 @@ public class UserService {
             throw new IllegalArgumentException("Şifreler eşleşmiyor!");
         }
 
-        // Kullanıcıyı yeni oluşturup listeye ekle
-        User newUser = new User(
-                idCounter++,
-                userDTO.name(),
-                "",  // Last name boş
-                userDTO.email(),
-                userDTO.email(),  // Username'i email ile aynı yapabiliriz
-                userDTO.password(),
-                ""
-        );
+        User newUser = User.builder()
+                .firstName(userDTO.name())
+                .email(userDTO.email())
+                .password(userDTO.password())
+                .phone("")  // Telefon bilgisi ekleyebilirsiniz
+                .build();
 
-        userList.add(newUser);
+        userRepository.save(newUser);
 
-        // Yeni kullanıcı için UserResponseDTO oluştur
         return new UserResponseDTO(newUser.getId(), newUser.getFirstName(), newUser.getEmail());
     }
 
     // Kullanıcı giriş işlemi
     public UserResponseDTO loginUser(UserLoginRequestDTO loginDTO) {
-        for (User user : userList) {
-            if (user.getEmail().equals(loginDTO.email()) && user.getPassword().equals(loginDTO.password())) {
-                return new UserResponseDTO(user.getId(), user.getFirstName(), user.getEmail());
-            }
+        Optional<User> user = userRepository.findByEmail(loginDTO.email());
+        if (user.isPresent() && user.get().getPassword().equals(loginDTO.password())) {
+            return new UserResponseDTO(user.get().getId(), user.get().getFirstName(), user.get().getEmail());
         }
         throw new IllegalArgumentException("Geçersiz e-posta veya şifre!");
     }
@@ -54,7 +48,7 @@ public class UserService {
     // Tüm kullanıcıları listeleme
     public List<UserResponseDTO> getAllUsers() {
         List<UserResponseDTO> users = new ArrayList<>();
-        for (User user : userList) {
+        for (User user : userRepository.findAll()) {
             users.add(new UserResponseDTO(user.getId(), user.getFirstName(), user.getEmail()));
         }
         return users;
@@ -62,14 +56,7 @@ public class UserService {
 
     // Kullanıcı ID'sine göre arama
     public Optional<UserResponseDTO> getUserById(Long id) {
-        for (User user : userList) {
-            if (user.getId().equals(id)) {
-                return Optional.of(new UserResponseDTO(user.getId(), user.getFirstName(), user.getEmail()));
-            }
-        }
-        return Optional.empty();
+        Optional<User> user = userRepository.findById(id);
+        return user.map(u -> new UserResponseDTO(u.getId(), u.getFirstName(), u.getEmail()));
     }
 }
-
-
-
