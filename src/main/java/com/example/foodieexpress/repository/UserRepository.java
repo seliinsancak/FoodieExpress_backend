@@ -2,6 +2,7 @@ package com.example.foodieexpress.repository;
 
 import com.example.foodieexpress.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -13,7 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByPhone(String phone);  // Telefon numarası kontrolü
 
     Optional<User> findByPhone(String phone);  // Telefon numarası ile kullanıcı bul
-
 
     Optional<User> findById(Long id);
 }
